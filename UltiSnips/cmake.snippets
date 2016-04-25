@@ -1,0 +1,26 @@
+snippet if "if cmake" 
+if (${1:condition})
+
+$0
+
+endif ($1)
+endsnippet
+
+
+snippet ifelse "if else cmake" 
+if (${1:condition})
+
+$0
+else ($1)
+
+endif ($1)
+endsnippet
+
+
+
+snippet def "add_definitions" 
+add_definitions( ${1:}-Ddefinicion )
+endsnippet
+
+
+

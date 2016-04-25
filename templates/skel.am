@@ -1,0 +1,20 @@
+if DEBUG
+  AM_CFLAGS = -Wall -g3 -O0
+else
+  AM_CFLAGS = -Wall
+endif
+
+
+
+bin_PROGRAMS = ejemplo    
+ejemplo_SOURCES = main.c
+ejemplo_LDADD = \
+						${AVUTIL_LIBS} \
+
+ejemplo_CFLAGS= -Wall \
+						${AVUTIL_CFLAGS} \
+
+ejemplo_LDFLAGS= 
+
+
+

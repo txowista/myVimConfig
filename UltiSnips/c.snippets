@@ -1,0 +1,92 @@
+
+
+snippet unu "(void) unused"
+	(void) ${1:varName};
+	$0
+endsnippet
+
+
+
+
+snippet cplusplus "(c++ guards for linking"
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+endsnippet
+
+
+
+snippet UNUSED "UNUSED ATRIBUTE"
+	__atribute__((unused)) 
+
+endsnippet
+
+snippet printf "printf"
+	printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+
+endsnippet
+
+
+snippet typedefenum "typedef enum"
+	typedef  enum {
+	$0,
+	} ${1:tipo};
+endsnippet
+
+snippet typedefstruct "typedef struct"
+	typedef struct {
+	$0,
+	} ${1:tipo};
+endsnippet
+
+
+
+
+
+
+
+
+snippet mainqt "main for qt"
+#include <QCoreApplication>
+
+
+
+
+
+int main(int argc,char **argv ) {
+  QCoreApplication *app;
+  app=new QCoreApplication(argc,argv);
+  $0
+
+ while(app->hasPendingEvents()) {
+    app->processEvents();
+  }
+  delete app;
+  return 0;
+}
+	
+endsnippet
+	
+snippet LICENSE
+	// Copyright [`date +%Y`] `!v g:company`
+endsnippet 
+	
+snippet HEADER  "HEADER"
+	// Copyright [`date +%Y`] `!v g:company`
+	/**
+	* @file   ${1:`!v toupper(join(split(join(split  (expand("%"),'\.'),"_"), "\/"),"_"))`}
+	* @Author `!v  g:author`
+	* @date   `date +%Y-%M-%d` 
+	* @brief  ${2} 
+	*/
+	#ifndef $1
+	#define $1
+	$0
+	#endif  // $1
+endsnippet
+
+
