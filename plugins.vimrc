@@ -11,9 +11,9 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 "}}}
- Plug 'sheerun/vim-polyglot' "{{{
- let g:cpp_class_scope_highlight = 1
- let g:cpp_experimental_template_highlight = 1
+Plug 'sheerun/vim-polyglot' "{{{
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
 
 "}}}
 
@@ -28,27 +28,52 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "Usnippets"]
 "}}}
 
-Plug 'Valloric/YouCompleteMe'  , { 'do': 'python2 install.py -all' ,'tag':'c5cf60b7d3b88107638bec3bff51e54c07371301'} "{{{
-let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
-let g:ycm_complete_in_comments_and_strings=0
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-let g:ycm_filetype_blacklist={'unite': 1}
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_open_loclist_on_ycm_diags = 1
-noremap <leader>F :YcmCompleter FixIt<cr>
+if !empty(glob("/usr/bin/python2"))
+  Plug 'Valloric/YouCompleteMe'  , { 'do': 'python2 install.py --clang-complete' ,'tag':'9968a43f7ec058298667c2c56ca86cfbbf1dac51'} "{{{
+  let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
+  let g:ycm_complete_in_comments_and_strings=0
+  let g:ycm_collect_identifiers_from_comments_and_strings = 0
+  let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+  let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+  let g:ycm_filetype_blacklist={'unite': 1}
+  let g:ycm_min_num_of_chars_for_completion = 2
+  let g:ycm_open_loclist_on_ycm_diags = 1
+  noremap <leader>F :YcmCompleter FixIt<cr>
 
-command! YcmFixIt :YcmCompleter FixIt
-command! YcmGetDoc :YcmCompleter GetDoc
-command! TcmGoToInclude :YcmCompleter GoToInclude
-command! TcmGoToDeclaration :YcmCompleter GoToDeclaration
-command! TcmGoToDefinition :YcmCompleter GoToDefinition
+  command! YcmFixIt :YcmCompleter FixIt
+  command! YcmGetDoc :YcmCompleter GetDoc
+  command! TcmGoToInclude :YcmCompleter GoToInclude
+  command! TcmGoToDeclaration :YcmCompleter GoToDeclaration
+  command! TcmGoToDefinition :YcmCompleter GoToDefinition
+
+else
+  if !empty(glob("/usr/bin/python"))
+  Plug 'Valloric/YouCompleteMe'  , { 'do': 'python install.py --clang-complete' ,'tag':'9968a43f7ec058298667c2c56ca86cfbbf1dac51'} "{{{
+
+    let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+    let g:ycm_complete_in_comments_and_strings=0
+    let g:ycm_collect_identifiers_from_comments_and_strings = 0
+    let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+    let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+    let g:ycm_filetype_blacklist={'unite': 1}
+    let g:ycm_min_num_of_chars_for_completion = 2
+    let g:ycm_open_loclist_on_ycm_diags = 1
+    noremap <leader>F :YcmCompleter FixIt<cr>
+
+    command! YcmFixIt :YcmCompleter FixIt
+    command! YcmGetDoc :YcmCompleter GetDoc
+    command! TcmGoToInclude :YcmCompleter GoToInclude
+    command! TcmGoToDeclaration :YcmCompleter GoToDeclaration
+    command! TcmGoToDefinition :YcmCompleter GoToDefinition
+
+
+  endif
+endif
 
 "}}}
 
 
-Plug 'rdnetto/YCM-Generator'
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 
 if has('nvim')
@@ -105,16 +130,16 @@ if executable('ag')
   let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
 endif
 
- nmap \ [ctrlp]
- nnoremap [ctrlp] <nop>
+nmap \ [ctrlp]
+nnoremap [ctrlp] <nop>
 
- nnoremap [ctrlp]t :CtrlPBufTag<cr>
- nnoremap [ctrlp]T :CtrlPTag<cr>
- nnoremap [ctrlp]l :CtrlPLine<cr>
- nnoremap [ctrlp]o :CtrlPFunky<cr>
- nnoremap [ctrlp]b :CtrlPBuffer<cr>
- command! Buffers  :CtrlPBuffer
- command! MRU      :CtrlPMRUFiles
+nnoremap [ctrlp]t :CtrlPBufTag<cr>
+nnoremap [ctrlp]T :CtrlPTag<cr>
+nnoremap [ctrlp]l :CtrlPLine<cr>
+nnoremap [ctrlp]o :CtrlPFunky<cr>
+nnoremap [ctrlp]b :CtrlPBuffer<cr>
+command! Buffers  :CtrlPBuffer
+command! MRU      :CtrlPMRUFiles
 "}}}
 
 Plug 'noahfrederick/vim-skeleton' "{{{
@@ -261,7 +286,7 @@ Plug 'nathanaelkane/vim-indent-guides' "{{{
 let g:indent_guides_start_level=1
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
- let g:indent_guides_color_change_percent=3
+let g:indent_guides_color_change_percent=3
 " let g:indent_guides_auto_colors=0
 " function! s:indent_set_console_colors()
 "   hi IndentGuidesOdd ctermbg=235
@@ -404,8 +429,8 @@ let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 " call NERDTreeHighlightFile('cpp', 'green', 'none', 'green', '#141e23')x"call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#141e23')
 call NERDTreeHighlightFile('toml', 'Magenta', 'none', '#ff00ff', '#141e23')
@@ -424,7 +449,7 @@ Plug 'Valloric/MatchTagAlways'
 Plug  'Xuyuanp/nerdtree-git-plugin'
 Plug 'jreybert/vimagit'
 Plug 'quark-zju/vim-cpp-auto-include' "{{{
- command! Includes      :ruby CppAutoInclude::process
+command! Includes      :ruby CppAutoInclude::process
 "}}}
 "
 Plug 'dagwieers/asciidoc-vim'
@@ -432,20 +457,20 @@ Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/SyntaxRange' "{{{
 
 function! AsciidocEnableSyntaxRanges()
-" source block syntax highlighting
-if exists('g:loaded_SyntaxRange')
-  for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sh']
+  " source block syntax highlighting
+  if exists('g:loaded_SyntaxRange')
+    for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sh']
+      call SyntaxRange#Include(
+            \  '\c\[source\s*,\s*' . lang . '.*\]\s*\n[=-]\{4,\}\n'
+            \, '\]\@<!\n[=-]\{4,\}\n'
+            \, lang, 'NonText')
+    endfor
+
     call SyntaxRange#Include(
-          \  '\c\[source\s*,\s*' . lang . '.*\]\s*\n[=-]\{4,\}\n'
+          \  '\c\[source\s*,\s*gherkin.*\]\s*\n[=-]\{4,\}\n'
           \, '\]\@<!\n[=-]\{4,\}\n'
-          \, lang, 'NonText')
-  endfor
- 
-  call SyntaxRange#Include(
-        \  '\c\[source\s*,\s*gherkin.*\]\s*\n[=-]\{4,\}\n'
-        \, '\]\@<!\n[=-]\{4,\}\n'
-        \, 'cucumber', 'NonText')
-endif
+          \, 'cucumber', 'NonText')
+  endif
 endfunction"
 call AsciidocEnableSyntaxRanges()
 "}}}
@@ -457,21 +482,21 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 
 
 function! MarkdownEnableSyntaxRanges()
-" source block syntax highlighting
-if exists('g:loaded_SyntaxRange')
-  for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sh', 'php', 'yaml']
-    call SyntaxRange#Include(
-          \  '^```' . lang . '$'
-          \, '^```$'
-          \, lang, 'NonText')
-  endfor
+  " source block syntax highlighting
+  if exists('g:loaded_SyntaxRange')
+    for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sh', 'php', 'yaml']
+      call SyntaxRange#Include(
+            \  '^```' . lang . '$'
+            \, '^```$'
+            \, lang, 'NonText')
+    endfor
 
-  " exception for gherkin, since the syntax file is named cucumber
-  call SyntaxRange#Include(
-        \  '^```gherkin$'
-        \, '^```$'
-        \, 'cucumber', 'NonText')
-endif
+    " exception for gherkin, since the syntax file is named cucumber
+    call SyntaxRange#Include(
+          \  '^```gherkin$'
+          \, '^```$'
+          \, 'cucumber', 'NonText')
+  endif
 endfunction
 
 call MarkdownEnableSyntaxRanges()
