@@ -139,6 +139,7 @@ nnoremap [ctrlp]l :CtrlPLine<cr>
 nnoremap [ctrlp]o :CtrlPFunky<cr>
 nnoremap [ctrlp]b :CtrlPBuffer<cr>
 command! Buffers  :CtrlPBuffer
+nnoremap <leader>b :Buffers<cr>
 command! MRU      :CtrlPMRUFiles
 "}}}
 
