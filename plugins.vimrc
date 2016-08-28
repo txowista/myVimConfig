@@ -11,6 +11,7 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 "}}}
+
 Plug 'sheerun/vim-polyglot' "{{{
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
@@ -147,7 +148,7 @@ Plug 'noahfrederick/vim-skeleton' "{{{
 let g:skeleton_template_dir = g:VIMPATH . "/templates"
 let g:skeleton_replacements = {}
 function! g:skeleton_replacements.CHEADERNAME()
-  let s:inc = toupper(fnamemodify(expand("%"), ':p:.:r:gs?/?_?')) 
+  let s:inc = toupper(fnamemodify(expand("%"), ':p:.:r:gs?/?_?'))
   return s:inc."_H_"
 endfunction
 "}}}
@@ -162,49 +163,7 @@ let g:DoxygenToolkit_blockFooter="----------------------------------------------
 let g:DoxygenToolkit_authorName= g:author
 "}}}
 
-Plug 'airblade/vim-gitgutter' , {'tag': '530bf68fcaf7a34ac17a9a4f4ce3f4309a272e27'}
-
-Plug 'tpope/vim-fugitive' "{{{
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>gr :Gremove<CR>
-autocmd BufReadPost fugitive://* set bufhidden=delete
-"}}}
-"
-
-Plug 'kien/rainbow_parentheses.vim' "{{{
-let g:rbpt_colorpairs = [
-      \ ['brown',       'RoyalBlue3'],
-      \ ['Darkblue',    'SeaGreen3'],
-      \ ['darkgray',    'DarkOrchid3'],
-      \ ['darkgreen',   'firebrick3'],
-      \ ['darkcyan',    'RoyalBlue3'],
-      \ ['darkred',     'SeaGreen3'],
-      \ ['darkmagenta', 'DarkOrchid3'],
-      \ ['brown',       'firebrick3'],
-      \ ['gray',        'RoyalBlue3'],
-      \ ['black',       'SeaGreen3'],
-      \ ['darkmagenta', 'DarkOrchid3'],
-      \ ['Darkblue',    'firebrick3'],
-      \ ['darkgreen',   'RoyalBlue3'],
-      \ ['darkcyan',    'SeaGreen3'],
-      \ ['darkred',     'DarkOrchid3'],
-      \ ['red',         'firebrick3'],
-      \ ]
-let g:rbpt_max = 9
-let g:rbpt_loadcmd_toggle = 0
-autocmd MyAutoCmd VimEnter * RainbowParenthesesToggle
-autocmd MyAutoCmd Syntax * RainbowParenthesesLoadRound
-autocmd MyAutoCmd Syntax * RainbowParenthesesLoadSquare
-autocmd MyAutoCmd Syntax * RainbowParenthesesLoadBraces
-
-
-"}}}
+Plug 'mhinz/vim-signify'
 
 
 Plug  'gregsexton/gitv' "{{{
@@ -342,9 +301,9 @@ Plug 'jelera/vim-javascript-syntax'
 
 if  executable('instant-markdown-d')  "{{{
   " "[sudo] npm -g install instant-markdown-d
-  "if executable('redcarpet') && executable('instant-markdown-d') 
+  "if executable('redcarpet') && executable('instant-markdown-d')
   "# "If you're on Linux, the xdg-utils package needs to be installed (is installed by default on Ubuntu).
-  Plug  'suan/vim-instant-markdown' ,{ 'for': ['markdown', 'mkd'] } 
+  Plug  'suan/vim-instant-markdown' ,{ 'for': ['markdown', 'mkd'] }
 endif
 "}}}
 
@@ -368,18 +327,18 @@ let gita#features#commit#enable_default_mappings = 0
 Plug 'wesgibbs/vim-irblack'
 Plug 'vim-scripts/wombat256.vim'
 
-Plug 'osyo-manga/vim-jplus' "{{{
-nmap J <Plug>(jplus)
-vmap J <Plug>(jplus)
-"}}}
+" Plug 'osyo-manga/vim-jplus' "{{{
+" nmap J <Plug>(jplus)
+" vmap J <Plug>(jplus)
+" "}}}
 
 
-Plug'soramugi/auto-ctags.vim', { 'for' : ['c' , 'cpp'] } "{{{
-let g:auto_ctags_directory_list = ['.git', '.svn']
-let g:auto_ctags_tags_name = 'tags'
-let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
-"}}}
-
+" Plug 'soramugi/auto-ctags.vim', { 'for' : ['c' , 'cpp'] } "{{{
+" let g:auto_ctags_directory_list = ['.git', '.svn']
+" let g:auto_ctags_tags_name = 'tags'
+" let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
+" "}}}
+"
 
 Plug 'vim-scripts/a.vim' , { 'for' : ['c' , 'cpp'] }
 
@@ -423,6 +382,10 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdtree' "{{{
+
+"let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+
 autocmd StdinReadPre * let s:std_in=1
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=45
@@ -438,10 +401,22 @@ call NERDTreeHighlightFile('cpp', 'yellow', 'none', '#d8a235', 'none')
 call NERDTreeHighlightFile('json', 'green', 'none', '#d8a235', 'none')
 
 "}}}
+Plug 'jistr/vim-nerdtree-tabs'
+"{{{
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:php_folding = 1
+let g:perl_fold = 1
+let g:cpp_fold = 1
+let g:vim_fold = 1
+
+
+"}}}
 
 
 Plug 'easymotion/vim-easymotion'
-Plug 'vim-scripts/Conque-GDB' "{{{ 
+Plug 'vim-scripts/Conque-GDB' "{{{
 let g:ConqueGdb_Leader = '-'
 ""}}}
 
@@ -502,3 +477,91 @@ endfunction
 call MarkdownEnableSyntaxRanges()
 
 "}}}
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+"{{{
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+if has("mac")
+let g:gist_clip_command = 'pbcopy'
+  nmap mate :w<CR>:!mate %<CR>
+elseif has("unix")
+let g:gist_clip_command = 'xclip -selection clipboard'
+elseif has("win32")
+  " TODO
+endif
+"}}}
+
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+" Plug 'Shougo/unite.vim'
+" Plug 'rstacruz/vim-fastunite'
+"
+" Plug 'Shougo/neomru.vim'
+" Plug 'Shougo/unite-outline'
+" Plug 'tsukkee/unite-tag'
+"
+"
+Plug 'Konfekt/FastFold'
+
+
+Plug 'tmhedberg/SimpylFold'
+"{{{
+let g:SimpylFold_docstring_preview=1
+"}}}
+"
+
+
+Plug 'nvie/vim-flake8'
+"{{{
+let python_highlight_all=1
+syntax on
+"}}}
+
+
+Plug 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
+
+Plug 'vim-scripts/Pydiction'
+" Plug 'ervandew/supertab'
+
+
+Plug 'bronson/vim-trailing-whitespace'
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/unite.vim'
+" Plug 'rstacruz/vim-fastunite'
+
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'tsukkee/unite-tag'
+Plug 'mattn/unite-gist'
+Plug 'thinca/vim-unite-history'
+"{{{
+" Unite
+nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-n>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-p>   <Plug>(unite_select_previous_line)
+endfunction
+"}}}
+
+
+Plug 'Chiel92/vim-autoformat'
+Plug 'rhysd/clever-f.vim'
+Plug 'mtth/scratch.vim'
+Plug 'google/vim-ft-bzl'
+
+
+Plug 'editorconfig/editorconfig-vim'
