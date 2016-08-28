@@ -397,9 +397,8 @@ Plug 'vim-scripts/a.vim' , { 'for' : ['c' , 'cpp'] }
 "let g:EasyMotion_show_prompt = 1
 "let g:EasyMotion_verbose = 0
 ""}}}
-Plug 'albertoCaroM/ctrlp-tmux.vim'
 Plug 'chrisbra/NrrwRgn'
-Plug 'craigemery/vim-autotag'
+" Plug 'craigemery/vim-autotag'
 Plug 'chrisbra/vim-diff-enhanced' "{{{
 let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
 "}}}
