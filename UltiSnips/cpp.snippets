@@ -1,5 +1,32 @@
 extends c
 
+
+snippet cppstruct "struct c++"
+struct ${1:NAME} {
+	$0
+	$1(){}
+}
+endsnippet
+
+snippet movable "movable operator c++"
+
+ ${1:NameClass}($1 && op) noexcept;  // movable
+ $1& operator=($1 && op) noexcept;   //
+ $0
+
+endsnippet
+
+
+snippet copyable "copyable operator c++"
+
+    ${1:NameClass}(const $1& op);       // and copyable
+    $1& operator=(const $1& op);        //
+$0
+endsnippet
+
+
+
+
 snippet namespace "namespace google style"
 namespace ${1:NAME} {
 	$0
@@ -8,14 +35,26 @@ endsnippet
 
 snippet qDebug "qDebug"
 qDebug() << $0 ;
-endsnippet 
+endsnippet
 
 snippet tuple "std::pair tuple"
 std::pair<${1:first},${2:second}> $0;
 endsnippet
+snippet shared_ptr "std::shared_ptr definition"
+std::shared_ptr<${1:variable}> $0;
+endsnippet
+
+snippet unique_ptr "std::unique_ptr definition"
+std::unique_ptr<${1:variable}> $0;
+endsnippet
+
+snippet weak_ptr "std::weak_ptr definition"
+std::weak_ptr<${1:variable}> $0;
+endsnippet
 
 
-snippet typehash "typedef hash" 
+
+snippet typehash "typedef hash"
 typedef std::hash<${1:first}/*${2:firstName}*/,${3:second}/*${4:secondName}*/> ${5:TypeOfTuple};
 
 static constexpr $1& get$5$2($5& arg_$5)
@@ -35,12 +74,12 @@ endsnippet
 snippet typedefTuple "typedef tuple"
 typedef std::pair<${1:first}/*${2:firstName}*/,${3:second}/*${4:secondName}*/> ${5:TypeOfTuple};
 
-static constexpr $1& get$5$2($5& arg_$5) constexpr 
+static constexpr $1& get$5$2($5& arg_$5) constexpr
 {
 	return arg_$5.first;
 }
 
-static constexpr $3& get$5$4($5& arg_$5) constexpr 
+static constexpr $3& get$5$4($5& arg_$5) constexpr
 {
 	return arg_$5.second;
 }
@@ -49,12 +88,61 @@ $0
 endsnippet
 
 
+
+snippet FileName:: "File Name for (Uppercase first letter)"
+${1:`!p snip.rv = snip.basename[0].upper() + snip.basename[1:] or "Name"`}::${0}
+endsnippet
+
+snippet clFunction "class function "
+${1:`!p snip.rv = snip.basename[0].upper() + snip.basename[1:] or "Name"`}::${2:function} (${3:arguments}){
+
+ $0
+}
+endsnippet
+
+
+snippet clImpl "class hidden for pimpl"
+class ${1:`!p snip.rv = snip.basename[0].upper() + snip.basename[1:] or "Name"`}::impl {
+public:
+impl(${2:arguments} ){
+
+$0
+}
+impl()=default;
+~impl()=default;
+
+};
+
+
+${1/(\w+).*/$1/}::${1/(\w+).*/$1/} (${3:arguments}):pimpl{ new impl{ ${4} } } {}
+${1/(\w+).*/$1/}::~${1/(\w+).*/$1/} ()=default;
+
+
+endsnippet
+
+
+snippet clPimpl "class .. (Capitalize class with pimpl)"
+class ${1:`!p snip.rv = snip.basename[0].upper() + snip.basename[1:] or "Name"`}{
+public:
+	${1/(\w+).*/$1/} (${2:arguments});
+	~${1/(\w+).*/$1/} ()=default;
+
+	$0
+private:
+    class impl;
+    std::unique_ptr<impl> pimpl;
+};
+
+endsnippet
+
+
+
 snippet cl "class .. (Capitalize class)"
 class ${1:`!p snip.rv = snip.basename[0].upper() + snip.basename[1:] or "Name"`}
 {
 public:
 	${1/(\w+).*/$1/} (${2:arguments});
-	virtual ~${1/(\w+).*/$1/} ();
+	virtual ~${1/(\w+).*/$1/} ()=default;
 
 private:
 	${0:/* data */}
@@ -76,13 +164,13 @@ signals:
 			private slots:
 };
 
-endsnippet 
+endsnippet
 
 
 snippet enumclass "enum class"
 	enum class ${1:tipo}  {
 	$0,
-	}; 
+	};
 endsnippet
 
 snippet qcoreapplication "qt class"
