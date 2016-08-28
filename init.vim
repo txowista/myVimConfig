@@ -342,6 +342,8 @@ nnoremap <down> :tabprev<CR>
 inoremap jk <esc>
 inoremap kj <esc>
 
+nnoremap     <leader><space> :let @/ = ""<CR>
+
 " mac version
 "nnoremap <leader>cfn :let @*=expand("%").":".line(".")
 " linux version
