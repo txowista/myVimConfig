@@ -1,6 +1,6 @@
 # dotvim
 
-git clone https://github.com/albertoCaroM/dotvim ~/.vim 
+git clone git@github.com:txowista/myVimConfig ~/.vim 
 
 install -d ~/.config 
 ln -s ~/.vim ~/.config/nvim 

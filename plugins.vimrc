@@ -11,6 +11,12 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 "}}}
+
+Plug 'altercation/vim-colors-solarized'
+Plug 'rhysd/vim-clang-format' "{{{
+autocmd FileType c ClangFormatAutoEnable
+autocmd FileType cpp ClangFormatAutoEnable
+"}}}
 Plug 'sheerun/vim-polyglot' "{{{
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
@@ -111,7 +117,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
-
+Plug 'alepez/vim-gtest'
 Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim' "{{{
 let g:ctrlp_clear_cache_on_exit=1
@@ -396,7 +402,6 @@ Plug 'vim-scripts/a.vim' , { 'for' : ['c' , 'cpp'] }
 "let g:EasyMotion_show_prompt = 1
 "let g:EasyMotion_verbose = 0
 ""}}}
-Plug 'albertoCaroM/ctrlp-tmux.vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'craigemery/vim-autotag'
 Plug 'chrisbra/vim-diff-enhanced' "{{{

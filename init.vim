@@ -322,7 +322,9 @@ endif
 nmap <leader>fef :call Preserve("normal gg=G")<CR>
 nmap <leader>f$ :call StripTrailingWhitespace()<CR>
 vmap <leader>s :sort<cr>
-
+map <leader>cf :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<cr>
+imap <leader>cf :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<cr>
+noremap <leader>cr :pyf /usr/share/vim/addons/syntax/clang-rename.py<cr>
 " eval vimscript by line or visual selection
 nmap <silent> <leader>e :call Source(line('.'), line('.'))<CR>
 vmap <silent> <leader>e :call Source(line('v'), line('.'))<CR>
@@ -341,6 +343,10 @@ nnoremap <down> :tabprev<CR>
 " smash escape
 inoremap jk <esc>
 inoremap kj <esc>
+inoremap jj <esc>
+inoremap hh <esc>
+inoremap kk <esc>
+inoremap lll <esc>
 
 " mac version
 "nnoremap <leader>cfn :let @*=expand("%").":".line(".")
@@ -352,6 +358,8 @@ if mapcheck('<space>/') == ''
   nnoremap <space>/ :vimgrep //gj **/*<left><left><left><left><left><left><left><left>
 endif
 
+"Focus of look"
+nnoremap <leader><space> :let @/ = ""<CR>
 " sane regex {{{
 nnoremap / /\v
 vnoremap / /\v
@@ -425,6 +433,43 @@ nnoremap Y y$
 
 " hide annoying quit message
 nnoremap <C-c> <C-c>:echo<cr>
+" paste word over other
+:map <C-v> cw<C-r>0<ESC>
+" copy  word 
+:map <C-c> yaw<ESC>
+" cut  word 
+:map <C-x> daw<ESC>
+" Emacs key insert mode
+:map <C-s> /
+" insert mode
+imap <C-b> <Left>
+imap <C-f> <Right>
+imap <C-a> <C-o>:call <SID>home()<CR>
+imap <C-e> <End>
+imap <C-d> <Del>
+imap <C-h> <BS>
+imap <C-k> <C-r>=<SID>kill_line()<CR>
+
+
+function! s:home()
+  let start_col = col('.')
+  normal! ^
+  if col('.') == start_col
+    normal! 0
+  endif
+  return ''
+endfunction
+
+function! s:kill_line()
+  let [text_before_cursor, text_after_cursor] = s:split_line_text_at_cursor()
+  if len(text_after_cursor) == 0
+    normal! J
+  else
+    call setline(line('.'), text_before_cursor)
+  endif
+  return ''
+endfunction
+
 
 " window killer
 nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
@@ -453,6 +498,8 @@ nnoremap <C-W>z :call MaximizeToggle()<CR>
 nnoremap <C-W>Z :call MaximizeToggle()<CR>
 nnoremap <leader>T :Commentary <cr> 
 vnoremap <leader>T :Commentary  <cr>
+nnoremap <leader>t :TCommentBlock<cr> 
+vnoremap <leader>t :TCommentBlock<cr>
 
 nnoremap <leader>cn :cnext <cr>
 nnoremap <leader>cp :cprevious<cr>
@@ -471,7 +518,9 @@ endif
 :nnoremap <leader>ev :vsplit $VIMPATH."/init.vim"<cr>
 :nnoremap <leader>sv :source $MYVIMRC<cr>
 
-:nnoremap <leader>w  :w<cr>
+:nnoremap <leader>4 $
+:vnoremap <leader>4 $
+nnoremap <leader>w  :w<cr>
 :nnoremap <leader>q  :q<cr>
 :nnoremap <leader>q!  :q!<cr>
 :nnoremap <leader>qa  :qa<cr>
@@ -511,31 +560,32 @@ else
   set t_Co=256
 
 endif
-colorscheme OceanicNext
+" colorscheme OceanicNext
+colorscheme solarized
 set background=dark
 
 "" Fold Asciidoc files at sections and using nested folds for subsections
 " compute the folding level
 function! AsciidocLevel()
-    if getline(v:lnum) =~ '^== .*$'
-        return ">1"
-    endif
-    if getline(v:lnum) =~ '^=== .*$'
-        return ">2"
-    endif
-    if getline(v:lnum) =~ '^==== .*$'
-        return ">3"
-    endif
-    if getline(v:lnum) =~ '^===== .*$'
-        return ">4"
-    endif
-    if getline(v:lnum) =~ '^====== .*$'
-        return ">5"
-    endif
-    if getline(v:lnum) =~ '^======= .*$'
-        return ">6"
-    endif
-    return "="
+  if getline(v:lnum) =~ '^== .*$'
+    return ">1"
+  endif
+  if getline(v:lnum) =~ '^=== .*$'
+    return ">2"
+  endif
+  if getline(v:lnum) =~ '^==== .*$'
+    return ">3"
+  endif
+  if getline(v:lnum) =~ '^===== .*$'
+    return ">4"
+  endif
+  if getline(v:lnum) =~ '^====== .*$'
+    return ">5"
+  endif
+  if getline(v:lnum) =~ '^======= .*$'
+    return ">6"
+  endif
+  return "="
 endfunction
 " run the folding level method when asciidoc is here
 autocmd Syntax asciidoc setlocal foldexpr=AsciidocLevel()
