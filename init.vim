@@ -18,7 +18,7 @@ let s:settings = {}
 let s:settings.default_indent = 2
 let s:settings.max_column = 120
 let s:settings.enable_cursorcolumn=0
-let g:author="Alberto Caro alberto.caro.m@gmail.com"
+let g:author="Igor Gonzalez i.gonzalez.lerma@gmail.com"
 let g:ycm_confirm_extra_conf = 0
 if !has('nvim')
   set term=screen-256color
@@ -348,6 +348,8 @@ inoremap hh <esc>
 inoremap kk <esc>
 inoremap lll <esc>
 
+nnoremap     <leader><space> :let @/ = ""<CR>
+
 " mac version
 "nnoremap <leader>cfn :let @*=expand("%").":".line(".")
 " linux version
@@ -532,6 +534,23 @@ if !has("nvim")
   :nnoremap <leader>s :shell <cr>
 endif
 "}}}
+"
+
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=9
+endif
+
+
+" "python with virtualenv support
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
 
 
 " autocmd {{{
@@ -548,6 +567,21 @@ autocmd FileType python setlocal foldmethod=indent
 autocmd FileType markdown setlocal nolist
 autocmd FileType vim setlocal fdm=indent keywordprg=:help
 autocmd FileType lua setlocal makeprg=luacheck\ \%
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
 "}}}
 "
 "exec 'colorscheme ' . 'wombat256mod'
@@ -562,6 +596,17 @@ else
 endif
 " colorscheme OceanicNext
 colorscheme solarized
+"{{{
+if has('gui_running')
+  " set background=dark
+  " colorscheme solarized
+   colorscheme desert
+else
+"  colorscheme zenburn
+   colorscheme OceanicNext
+endif
+"}}}
+
 set background=dark
 
 "" Fold Asciidoc files at sections and using nested folds for subsections
