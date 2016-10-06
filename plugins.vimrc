@@ -26,6 +26,7 @@ let g:cpp_experimental_template_highlight = 1
 Plug 'junegunn/vim-plug'
 Plug 'junegunn/vim-easy-align'
 Plug 'honza/vim-snippets'
+Plug 'jacoborus/tender'
 Plug 'SirVer/ultisnips'   "{{{
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"

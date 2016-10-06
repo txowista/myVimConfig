@@ -348,7 +348,6 @@ inoremap hh <esc>
 inoremap kk <esc>
 inoremap lll <esc>
 
-nnoremap     <leader><space> :let @/ = ""<CR>
 
 " mac version
 "nnoremap <leader>cfn :let @*=expand("%").":".line(".")
@@ -409,6 +408,10 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <leader>fw :execute "vimgrep ".expand("<cword>")." %"<cr>:copen<cr>
 " find last search in quickfix
 nnoremap <leader>ff :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
+"Goto YCMComplete
+nnoremap <leader>gd :YcmCompleter GoToDefinition<cr>
+nnoremap <leader>dg :YcmCompleter GoToDeclaration<cr>
+nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
 
 " shortcuts for windows {{{
 nnoremap <leader>v <C-w>v<C-w>l
@@ -595,7 +598,8 @@ else
 
 endif
 " colorscheme OceanicNext
-colorscheme solarized
+" colorscheme solarized
+colorscheme tender
 "{{{
 if has('gui_running')
   " set background=dark
@@ -603,7 +607,8 @@ if has('gui_running')
    colorscheme desert
 else
 "  colorscheme zenburn
-   colorscheme OceanicNext
+   " colorscheme OceanicNext
+  colorscheme tender
 endif
 "}}}
 
