@@ -111,6 +111,8 @@ Plug 'tpope/vim-repeat'
 
 Plug 'rking/ag.vim'
 
+Plug 'vim-scripts/ReplaceWithRegister'
+
 Plug 'ctrlpvim/ctrlp.vim' "{{{
 let g:ctrlp_clear_cache_on_exit=1
 let g:ctrlp_max_height=40

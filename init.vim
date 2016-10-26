@@ -262,6 +262,7 @@ call plug#end()
 set showmatch                                       "automatically highlight matching braces/brackets/etc.
 set matchtime=2                                     "tens of a second to show matching parentheses
 set number
+set relativenumber
 set lazyredraw
 set laststatus=2
 set noshowmode
@@ -361,6 +362,10 @@ nnoremap <leader>cfn :let @+=expand("%").":".line(".")
 if mapcheck('<space>/') == ''
   nnoremap <space>/ :vimgrep //gj **/*<left><left><left><left><left><left><left><left>
 endif
+"Plug :: ReplaceWithRegister
+  nmap <leader>r  <Plug>ReplaceWithRegisterOperator
+  nmap <leader>rr <Plug>ReplaceWithRegisterLine
+  xmap <leader>r  <Plug>ReplaceWithRegisterVisual
 
 " sane regex {{{
 nnoremap / /\v
@@ -386,7 +391,48 @@ nnoremap zM zM:echo &foldlevel<cr>
 " screen line scroll
 nnoremap <silent> j gj
 nnoremap <silent> k gk
-
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+" Make Ctrl-e jump to the end of the current line in the insert mode. This is
+" " handy when you are in the middle of a line and would like to go to its end
+" " without switching to the normal mode.
+inoremap <C-e> <C-o>$
+" Allows you to easily replace the current word and all its occurrences.
+nnoremap <leader>rc :%s/\<<C-r><C-w>\>/
+vnoremap <leader>rc y:%s/<C-r>"/
+" Quit with Q instead of :q!.
+noremap <silent>Q :q!<CR>
+"
+" " Quicksave all buffers.
+" " (Use both :w and :wa to force write of the currently edited buffer, even
+" if
+" " there are no changes. This forces removal of trailing whitespace from the
+" " buffer and also overwrites of the file even if it has changed, which is
+" " sometimes handy.)
+nnoremap <silent> <C-s> :w<CR>:wa<CR>
+inoremap <silent> <C-s> <Esc>:w<CR><Esc>:wa<CR>
+vnoremap <silent> <C-s> <Esc>:w<CR><Esc>:wa<CR>
+" " Allows you to easily change the current word and all occurrences to
+" something
+" " else. The difference between this and the previous mapping is that the
+" mapping
+" " below pre-fills the current word for you to change.
+nnoremap <leader>cc :%s/\<<C-r><C-w>\>/<C-r><C-w>
+vnoremap <leader>cc y:%s/<C-r>"/<C-r>""
+" Insert the contents of the clipboard.
+nnoremap <silent> <leader>P :set paste<CR>"+]P:set nopaste<CR>
+nnoremap <silent> <leader>p :set paste<CR>"+]p:set nopaste<CR>
+vnoremap          <leader>p "+p
+"
+" " Copy the selected text into the clipboard.
+noremap <leader>y "+y
+"
+" " Cut the selected text into the clipboard.
+noremap <leader>d "+d
+"Copy word
+:map <C-c> yaw <ESC>
+"PASte word over other
+:map <C-v> cw<C-r>0<ESC>
 " auto center {{{
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
@@ -501,15 +547,6 @@ if (exists('+colorcolumn'))
 endif
 
 
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 
 " autocmd {{{
