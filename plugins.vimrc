@@ -12,6 +12,11 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 "}}}
 
+Plug 'altercation/vim-colors-solarized'
+Plug 'rhysd/vim-clang-format' "{{{
+autocmd FileType c ClangFormatAutoEnable
+autocmd FileType cpp ClangFormatAutoEnable
+"}}}
 Plug 'sheerun/vim-polyglot' "{{{
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
@@ -23,7 +28,7 @@ Plug 'junegunn/vim-easy-align'
 
 Plug 'honza/vim-snippets'
 
-
+Plug 'jacoborus/tender'
 Plug 'SirVer/ultisnips'   "{{{
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -108,7 +113,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
-
+Plug 'alepez/vim-gtest'
 Plug 'rking/ag.vim'
 
 Plug 'vim-scripts/ReplaceWithRegister'
