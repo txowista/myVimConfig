@@ -681,6 +681,7 @@ autocmd BufRead *.asciidoc normal zR
 
 
 command! Capitalize :normal!  "_yiwvgU
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 set showbreak=↳
 set hls
